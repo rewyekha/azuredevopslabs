@@ -1,8 +1,8 @@
 ---
-title: Managing Technical Debt with Azure DevOps and SonarCloud
+title: Managing Technical Debt with Azure DevOps and SonarQube Cloud
 layout: page
 sidebar: vsts
-permalink: /labs/azuredevops/sonarcloud/
+permalink: /labs/azuredevops/SonarQube cloud/
 folder: /labs/azuredevops/sonarcloud/
 version: Lab version - 15.8.2
 updated: Last updated - 9/6/2018
@@ -12,34 +12,34 @@ updated: Last updated - 9/6/2018
 
 ## Overview ##
 
-In this lab, you will be introduced to technical debt, how to configure your Azure Build definitions to use SonarCloud, how to understand the analysis results, and finally how to configure quality profile to control the rule set used by SonarCloud for analyzing your project.
+In this lab, you will be introduced to technical debt, how to configure your Azure Build definitions to use SonarQube Cloud, how to understand the analysis results, and finally how to configure quality profile to control the rule set used by SonarQube Cloud for analyzing your project.
 
 Technical debt is the set of problems in a development effort that make forward progress on customer value inefficient. Technical debt saps productivity by making code hard to understand, fragile, time-consuming to change, difficult to validate, and creates unplanned work that blocks progress. Technical debt saps an org's strength due to high costs in customer support, and, eventually, some combination of these issues creates a larger problem that someone runs into. Technical debt is insidious. It starts small and grows over time through rushed changes, lack of context and lack of discipline. It can materialize out of nowhere even for a project regarded as clean at some point in time, due to a change in project circumstances: prototype code may be promoted to serve as the basis for a feature; code produced for the U.S. market may be proposed for international, instantly creating debt related to localizability; technologies evolve, but the app doesn't keep up.
 
 <a name="Prerequisites"></a>
 ### Prerequisites ###
 
-- A SonarCloud account from [https://sonarcloud.io](https://sonarcloud.io/).
+- A SonarQube Cloud (SaaS) account from [https://www.sonarsource.com/](https://www.sonarsource.com/).
 
 - This lab requires you to complete task 1 from the <a href="../prereq/">prerequisite</a> instructions.
 
 <a name="Exercise1"></a>
-## Exercise 1: Managing Technical Debt with Azure DevOps and SonarCloud ##
+## Exercise 1: Managing Technical Debt with Azure DevOps and SonarQube ##
 
 <a name="Ex1Task1"></a>
-### Task 1: Install and configure the SonarCloud extension ###
+### Task 1: Install and configure the SonarQube extension ###
 
 1. Navigate to your team project on Azure DevOps.
 
-1. SonarCloud is provided as a marketplace extension. From the **Marketplace** navigation dropdown, select **Browse Marketplace**.
+1. SonarQube is provided as a marketplace extension. From the **Marketplace** navigation dropdown, select **Browse Marketplace**.
 
     ![](images/000.png)
 
-1. Search for **"SonarCloud"**.
+1. Search for **"SonarQube Cloud"**.
 
     ![](images/001.png)
 
-1. Select the **SonarCloud** option.
+1. Select the **SonarQube Cloud** option.
 
     ![](images/002.png)
 
@@ -47,7 +47,7 @@ Technical debt is the set of problems in a development effort that make forward 
 
     ![](images/003.png)
 
-1. Select the organization to install **SonarCloud** into. This should be the organization that contains your **Parts Unlimited** project. Click **Install**.
+1. Select the organization to install **SonarQube Cloud** into. This should be the organization that contains your **Parts Unlimited** project. Click **Install**.
 
     ![](images/004.png)
 
@@ -58,7 +58,7 @@ Technical debt is the set of problems in a development effort that make forward 
 1. Navigate to your **Parts Unlimited** team project.
 
 <a name="Ex1Task2"></a>
-### Task 2: Integrating a build with SonarCloud ###
+### Task 2: Integrating a build with SonarQube Cloud ###
 
 1. Navigate to **Pipelines \| Pipelines**.
 
@@ -76,11 +76,11 @@ Technical debt is the set of problems in a development effort that make forward 
 
     ![](images/009.png)
 
-1. Select the **.NET Desktop with SonarCloud** template and click **Apply**.
+1. Select the **.NET Desktop with SonarQube Cloud** template and click **Apply**.
 
     ![](images/010.png)
 
-1. This build definition is pretty standard for a .NET project, except that it also includes three additional tasks for **SonarCloud**. Note that you could easily integrate these specific tasks with your existing build definitions. There's no need to start from scratch like we are in this lab.
+1. This build definition is pretty standard for a .NET project, except that it also includes three additional tasks for **SonarQube Cloud**. Note that you could easily integrate these specific tasks with your existing build definitions. There's no need to start from scratch like we are in this lab.
 
     ![](images/011.png)
 
@@ -88,19 +88,19 @@ Technical debt is the set of problems in a development effort that make forward 
 
     ![](images/012.png)
 
-1. Select the **Prepare analysis on SonarCloud** task. This task defines the connection configuration for any later tasks.
+1. Select the **Prepare analysis on SonarQube Cloud** task. This task defines the connection configuration for any later tasks.
 
     ![](images/013.png)
 
-1. Click **New** to configure a new **SonarCloud Service Endpoint**.
+1. Click **New** to configure a new **SonarQube Cloud Service Endpoint**.
 
     ![](images/014.png)
 
-1. Click **your SonarCloud account security page** to open the account page in a new tab.
+1. Click **your SonarQube Cloud account security page** to open the account page in a new tab.
 
     ![](images/015.png)
 
-1. Navigate to [https://sonarcloud.io](https://sonarcloud.io/) and sign in to your SonarCloud account.
+1. Navigate to [https://www.sonarsource.com](https://www.sonarsource.com) and sign in to your SonarQube Cloud account.
 
 1. Click "My account link" and move to "Security" tab
 
@@ -114,11 +114,11 @@ Technical debt is the set of problems in a development effort that make forward 
 
     ![](images/017.png)
 
-1. Enter a **Service connection name** of **"SonarCloud"** and paste the token as the **SonarCloud Token**. Click **Verify and save**.
+1. Enter a **Service connection name** of **"SonarQube Cloud"** and paste the token as the **SonarQube Cloud Token**. Click **Verify and save**.
 
     ![](images/018.png)
 
-1. Select **SonarCloud** as the **SonarCloud Service Endpoint** and select an **Organization** associated with the account. You'll also need to provide a globally unique **Project Key**, such as **"partsunlimited.YOURNAME"**.
+1. Select **SonarQube Cloud** as the **SonarQube Cloud Service Endpoint** and select an **Organization** associated with the account. You'll also need to provide a globally unique **Project Key**, such as **"partsunlimited.YOURNAME"**.
 
     ![](images/019.png)
 
@@ -131,9 +131,9 @@ Technical debt is the set of problems in a development effort that make forward 
     ![](images/021.png)
 
 <a name="Ex1Task3"></a>
-### Task 3: Reviewing SonarCloud results ###
+### Task 3: Reviewing SonarQube Cloud results ###
 
-1. From the left panel, select the **Run Code Analysis** task. This contains the processes where SonarCloud analyzes the code.
+1. From the left panel, select the **Run Code Analysis** task. This contains the processes where SonarQube Cloud analyzes the code.
 
     ![](images/022.png)
 
@@ -141,7 +141,7 @@ Technical debt is the set of problems in a development effort that make forward 
 
     ![](images/023.png)
 
-1. The SonarCloud results are organized for easy access to the key results you're looking for.
+1. The SonarQube Cloud results are organized for easy access to the key results you're looking for.
 
     ![](images/024.png)
 
@@ -173,7 +173,7 @@ Technical debt is the set of problems in a development effort that make forward 
 
     ![](images/031.png)
 
-1. Expand the **Administration** option. Note that there is an incredible amount of flexibility available here for customizing your SonarCloud analysis.
+1. Expand the **Administration** option. Note that there is an incredible amount of flexibility available here for customizing your SonarQube Cloud analysis.
 
     ![](images/032.png)
 
