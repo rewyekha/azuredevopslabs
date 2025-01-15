@@ -19,6 +19,8 @@ Ensure you have the following installed on your machine:
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Visual Studio](https://visualstudio.microsoft.com/) or any other preferred IDE
 
+<a name="Steps"></a>
+
 ## Steps
 
 1. **Clone the Repository**
@@ -72,6 +74,8 @@ Ensure you have the following installed on your machine:
    cd src/ADOGenerator/bin/Release/net8.0/win-x64/publish
    ./ADOGenerator.exe
    ```
+
+<a name="Additional Nodes"></a>
 
 ## Additional Notes
 
