@@ -4,7 +4,7 @@ layout: page
 sidebar: vsts
 permalink: /labs/azuredevops/prereq/
 folder: /labs/azuredevops/prereq/
-version: Lab version - 1.40.0
+version: Lab version - 1.39.0
 updated: Last updated - 13/01/2025
 ---
 
