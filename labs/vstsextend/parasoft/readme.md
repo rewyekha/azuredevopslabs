@@ -5,17 +5,18 @@ sidebar: vsts2
 permalink: /labs/vstsextend/parasoft/
 folder: /labs/vstsextend/parasoft/
 ---
+
 <div class="rw-ui-container"></div>
 
 ## Overview
 
 Service virtualization helps organizations accelerate time to market without compromising quality. Especially in Agile environments, dependent components (e.g., APIs, 3rd-party services, databases, mainframes, etc.) connected to the application under test are not readily accessible for development and testing because they are still evolving, beyond a team's control, or too costly/complex to configure in a test lab. With service virtualization, testing and development can proceed without waiting for access to the actual dependent components.
 
-Parasoft's service virtualization solution provides a unique environment-based approach. The combination of Microsoft Azure, Microsoft VSTS, and Parasoft Service Virtualization—operating natively within the Microsoft environment—is designed to provide teams the rapid, scalable, and flexible test environment access required for Agile, DevOps, and "Continuous Everything
+Parasoft's service virtualization solution provides a unique environment-based approach. The combination of Microsoft Azure, Microsoft Azure DevOps, and Parasoft Service Virtualization—operating natively within the Microsoft environment—is designed to provide teams the rapid, scalable, and flexible test environment access required for Agile, DevOps, and "Continuous Everything
 
-Please see the [Getting started with Parasoft and Azure](https://cdn2.hubspot.net/hubfs/69806/New_Pages/Getting%20Started%20Parasoft%20Azure%20Overview.pdf){:target="_blank"} provides for a more in-depth overview of Parasoft  Service Virtualization.
+Please see the [Getting started with Parasoft and Azure](https://cdn2.hubspot.net/hubfs/69806/New_Pages/Getting%20Started%20Parasoft%20Azure%20Overview.pdf){:target="\_blank"} provides for a more in-depth overview of Parasoft Service Virtualization.
 
-In this lab, we’ll create a complete continuous delivery pipeline for the Parabank application using VSTS and Parasoft. We’ll highlight
+In this lab, we’ll create a complete continuous delivery pipeline for the Parabank application using Azure DevOps and Parasoft. We’ll highlight
 the value of service virtualization and how it facilitates complete virtual environments for testing.
 
 ![image003](images/image003.png)
@@ -24,33 +25,33 @@ As shown in the above diagram, we'll:
 
 1. Pull Parabank code from GitHub.
 
-1. Build Parabank in VSTS using Maven.
+1. Build Parabank in Azure DevOps using Maven.
 
 1. Deploy (“release”) Parabank onto a VM in Azure. Simultaneously, we’ll call Parasoft Environment Manager (“EM”) to provision a virtual environment. This virtual environment will enable functional testing of Parabank.
 
 ### Prerequisites for the lab
 
-1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="_blank"}
+1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="\_blank"}
 
-    * If you are an active Visual Studio Subscriber, you are entitled for a $50-$150 credit per month. You can refer to this [link](https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-details/){:target="_blank"} to find out more information about this including how to activate and start using your monthly Azure credit.
+   - If you are an active Visual Studio Subscriber, you are entitled for a $50-$150 credit per month. You can refer to this [link](https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-details/){:target="\_blank"} to find out more information about this including how to activate and start using your monthly Azure credit.
 
-    * If you are not a Visual Studio Subscriber, you can sign up for the FREE [Visual Studio Dev Essentials](https://www.visualstudio.com/dev-essentials/){:target="_blank"} program to create a **Azure free account** (includes 1 year of free services, $200 for 1st month).
+   - If you are not a Visual Studio Subscriber, you can sign up for the FREE [Visual Studio Dev Essentials](https://www.visualstudio.com/dev-essentials/){:target="\_blank"} program to create a **Azure free account** (includes 1 year of free services, $200 for 1st month).
 
-1. You will need a **Visual Studio Team Services Account**. If you do not have one, you can sign up for free [here](https://www.visualstudio.com/products/visual-studio-team-services-vs){:target="_blank"}
+1. You will need a **Azure DevOps Organization**. If you do not have one, you can sign up for free [here](https://www.visualstudio.com/products/visual-studio-team-services-vs){:target="\_blank"}
 
-1. You will need a **Personal Access Token** to set up your project using the **VSTS Demo Generator**. Please see this [article](https://docs.microsoft.com/en-us/vsts/accounts/use-personal-access-tokens-to-authenticate){:target="_blank"} for instructions to create your token.
+1. You will need a **Personal Access Token** to set up your project using the **Azure DevOps Demo Generator**. Please see this [article](https://docs.microsoft.com/en-us/vsts/accounts/use-personal-access-tokens-to-authenticate){:target="\_blank"} for instructions to create your token.
 
-    {% include note.html content= "You should treat Personal Access Tokens like passwords. It is recommended that you save them somewhere safe so that you can re-use them for future requests." %}
+   {% include note.html content= "You should treat Personal Access Tokens like passwords. It is recommended that you save them somewhere safe so that you can re-use them for future requests." %}
 
 1. The ParaBank.zip sample system. You can download it **here**.
 
 ## Creating a Virtual Machine in Azure
 
-Before we create a project in VSTS, we need to deploy an Azure virtual machine. This machine will serve several purposes:
+Before we create a project in Azure DevOps, we need to deploy an Azure virtual machine. This machine will serve several purposes:
 
 - It will host Parasoft’s Continuous Testing Platform on which we’ll define virtual environments
 - We will deploy the Parabank demo application to this machine
-- We will deploy virtual environments onto this machine as part of the release process in VSTS.
+- We will deploy virtual environments onto this machine as part of the release process in Azure DevOps.
 
 1. In your Azure portal, select **New** to access the Marketplace:
 
@@ -62,7 +63,7 @@ Before we create a project in VSTS, we need to deploy an Azure virtual machine. 
 
    ![image4](images/image007.jpg)
 
-1. Select a virtual machine size (recommended is DS2\_V2 or better).Click OK.
+1. Select a virtual machine size (recommended is DS2_V2 or better).Click OK.
 
 1. Under **Settings**, you may change other configurations if desired. It is recommended that you do not change the default configuration unless you have a specific reason for doing so. Click OK.
 
@@ -78,19 +79,19 @@ Before we create a project in VSTS, we need to deploy an Azure virtual machine. 
 
    ![image013](images/image013.jpg)
 
-1. Go to http://&lt;VM\_IP\_Address&gt; in your browser. The Continuous Testing Platform main menu will appear. Once the **Online Percentage** widget shows **100%,** the virtual machine is fully configured and initialized:
+1. Go to http://&lt;VM_IP_Address&gt; in your browser. The Continuous Testing Platform main menu will appear. Once the **Online Percentage** widget shows **100%,** the virtual machine is fully configured and initialized:
 
    ![image015](images/image015.png)
 
 ## Importing Data into Environment Manager
 
-1. In your browser, navigate to http://&lt;VM\_IP\_Address&gt;Error! Hyperlink reference not valid.
+1. In your browser, navigate to http://&lt;VM_IP_Address&gt;Error! Hyperlink reference not valid.
 
 1. Near the top, click **Add System**:
 
    ![image017](images/image017.png)
 
-1. Select “Import a system from file,” then browse to Parabank.zip (download it *here*). Select “AzureVirtServer” as the Target server, select “localhost:2424” as the Repository server, then click “Import”:
+1. Select “Import a system from file,” then browse to Parabank.zip (download it _here_). Select “AzureVirtServer” as the Target server, select “localhost:2424” as the Repository server, then click “Import”:
 
    ![image019](images/image019.jpg)
 
@@ -98,9 +99,9 @@ Before we create a project in VSTS, we need to deploy an Azure virtual machine. 
 
    ![image021](images/image021.jpg)
 
-## Creating and Building the Parabank Project in VSTS
+## Creating and Building the Parabank Project in Azure DevOps
 
-1. In your VSTS portal, create a new project called Parabank (default settings are fine).
+1. In your Azure DevOps portal, create a new project called Parabank (default settings are fine).
 
    ![image023](images/image023.jpg)
 
@@ -116,11 +117,11 @@ Before we create a project in VSTS, we need to deploy an Azure virtual machine. 
 
 1. Use the following values for the fields:
 
-    - Connection Name: ParabankGitHub
+   - Connection Name: ParabankGitHub
 
-    - Server URL: [http://github.com/parasoft/parabank.git](http://github.com/parasoft/parabank.git){:target="_blank"}
+   - Server URL: [http://github.com/parasoft/parabank.git](http://github.com/parasoft/parabank.git){:target="\_blank"}
 
-    ![image030](images/image030.jpg)
+   ![image030](images/image030.jpg)
 
 1. Click "OK."
 
@@ -146,15 +147,15 @@ Before we create a project in VSTS, we need to deploy an Azure virtual machine. 
 
 1. Select “External Git” for Repository type. Click on the refresh icon next to the connection field, then enter the following details:
 
-    - Connection: ParabankGitHub
+   - Connection: ParabankGitHub
 
-    - Repository name: ParabankGitHub
+   - Repository name: ParabankGitHub
 
-    - Default branch: master
+   - Default branch: master
 
-    - Clean: True
+   - Clean: True
 
-    ![image036](images/image036.jpg)
+   ![image036](images/image036.jpg)
 
 1. Go to the Build tab.
 
@@ -162,30 +163,30 @@ Before we create a project in VSTS, we need to deploy an Azure virtual machine. 
 
 1. Add the following build steps in the order listed:
 
-   - Maven (under the *Build* category)
+   - Maven (under the _Build_ category)
 
-   - Copy and Publish Build Artifacts (under the *Utility* category)
+   - Copy and Publish Build Artifacts (under the _Utility_ category)
 
 1. Configure each build task.
 
-    - Configure Maven as follows:
+   - Configure Maven as follows:
 
-    - Maven POM file: pom.xml
+   - Maven POM file: pom.xml
 
-    - Options: (leave blank)
+   - Options: (leave blank)
 
-    - Goal: install
+   - Goal: install
 
-    - Under ‘JUnit Test Results’: uncheck ‘Publish to TFS/Team Services’
+   - Under ‘JUnit Test Results’: uncheck ‘Publish to TFS/Team Services’
 
-    ![image039](images/image039.jpg)
+   ![image039](images/image039.jpg)
 
-    - Copy Root: \$(Build.Repository.LocalPath)/target
-    - Contents: \*.war
-    - Artifact Name: drop
-    - Artifact Type: Server
+   - Copy Root: \$(Build.Repository.LocalPath)/target
+   - Contents: \*.war
+   - Artifact Name: drop
+   - Artifact Type: Server
 
-    ![image041](images/image041.jpg)
+   ![image041](images/image041.jpg)
 
 1. Click "Save" to save all the changes.
 
@@ -229,7 +230,7 @@ machine we created in the section “Steps to create a Virtual Machine in Azure.
    - Select "Empty" and click "Next."
 
    - Choose "Build" as your artifact source and point to your existing
-    Parabank build definition.
+     Parabank build definition.
 
      ![image053](images/image053.jpg)
 
@@ -237,33 +238,33 @@ machine we created in the section “Steps to create a Virtual Machine in Azure.
 
 1. In the new definition, click "Add tasks" and add the following:
 
-    - Deploy to Apache Tomcat (under the *Deploy* category)
+   - Deploy to Apache Tomcat (under the _Deploy_ category)
 
-    - Parasoft Service Virtualization Deploy (under the *Deploy* category)
+   - Parasoft Service Virtualization Deploy (under the _Deploy_ category)
 
-    ![image055](images/image055.jpg)
+   ![image055](images/image055.jpg)
 
 1. In your release definition, select the “Deploy application to a Tomcat server” task. Complete the configuration fields as follows:
 
-    - Tomcat Server URL: Error! Hyperlink reference not valid. (make sure you remove the port 8080) Error! Hyperlink reference not valid.
+   - Tomcat Server URL: Error! Hyperlink reference not valid. (make sure you remove the port 8080) Error! Hyperlink reference not valid.
 
-    - Tomcat Manager Username: tomcat
+   - Tomcat Manager Username: tomcat
 
-    - Password: tomcat
+   - Password: tomcat
 
-    - WAR file: (Browse in the build artifact and select the parabank.war file)
+   - WAR file: (Browse in the build artifact and select the parabank.war file)
 
 1. Select your Parasoft Service Virtualization Deploy task and configure it as follows:
 
-    - Parasoft CTP Endpoint: From the dropdown, select the ParasoftEM service endpoint created at the beginning of this section
+   - Parasoft CTP Endpoint: From the dropdown, select the ParasoftEM service endpoint created at the beginning of this section
 
-    - System: ParaBank
+   - System: ParaBank
 
-    - Environment: Golden
+   - Environment: Golden
 
-    - Instance: Negative
+   - Instance: Negative
 
-    - Leave everything else default and click "Save."
+   - Leave everything else default and click "Save."
 
 ## What are environments and instances
 
@@ -281,7 +282,7 @@ machine we created in the section “Steps to create a Virtual Machine in Azure.
 
    ![image063](images/image063.png)
 
-1. Once the release has completed and is successful (this may take a few minutes), navigate to http://&lt;VM\_IP\_ADDRESS&gt;/parabank in your browser. The Parabank application should load:Error! Hyperlink reference not valid.
+1. Once the release has completed and is successful (this may take a few minutes), navigate to http://&lt;VM_IP_ADDRESS&gt;/parabank in your browser. The Parabank application should load:Error! Hyperlink reference not valid.
 
    ![image065](images/image065.jpg)
 
@@ -309,17 +310,17 @@ machine we created in the section “Steps to create a Virtual Machine in Azure.
 
 1. Invoke the virtual asset by requesting a loan in Parabank as follows:
 
-    - Log in to Parabank using john/demo for user/password.
+   - Log in to Parabank using john/demo for user/password.
 
-    - Select “Request Loan” on the left.
+   - Select “Request Loan” on the left.
 
-    - Enter any Loan Amount and Down Payment.
+   - Enter any Loan Amount and Down Payment.
 
-    - Select “Apply Now”. You should receive the following response:
+   - Select “Apply Now”. You should receive the following response:
 
-    ![image073](images/image073.jpg)
+   ![image073](images/image073.jpg)
 
-      {% include tip.html content= "This indicates that we’ve successfully configured the correct environment during our release and we have received a response from the virtual environment instance we provisioned." %}
+   {% include tip.html content= "This indicates that we’ve successfully configured the correct environment during our release and we have received a response from the virtual environment instance we provisioned." %}
 
 1. If you wish, you may now provision one of the other available environments instances. Your options are as follows:
 

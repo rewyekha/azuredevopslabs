@@ -75,6 +75,8 @@ Ensure you have the following installed on your machine:
    ./ADOGenerator.exe
    ```
 
+Next Step <a href="../prereq/">Register and Setup</a>
+
 <a name="Additional Nodes"></a>
 
 ## Additional Notes

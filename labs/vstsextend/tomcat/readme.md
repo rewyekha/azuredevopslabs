@@ -27,19 +27,23 @@ This lab will show how you will
 
 1. Refer the [Getting Started](../Setup/) page before you follow the exercises.
 
-1. Use **MyShuttle** as a template to provision the new Azure DevOps project using the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77371&Name=MyShuttle){:target="\_blank"}.
+1. Follow the [simple walkthrough](https://docs.microsoft.com/en-us/azure/devops/demo-gen/use-vsts-demo-generator-v2? view=vsts) to know how to use the Azure DevOps Demo Generator.
+
+1. Once you run the application choose **MyShuttle** template, choose the right authentication method.
+
+1. Choose the organization and provide the project name to create a new project. Follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps Organization**.
 
 ## Exercise 1: Creating Azure Web App and MySQL database
 
-1. Launch the [Azure Cloud Shell](https://docs.microsoft.com/en-in/azure/cloud-shell/overview) from the portal.  To deploy to a resource group, enter the following command
+1. Launch the [Azure Cloud Shell](https://docs.microsoft.com/en-in/azure/cloud-shell/overview) from the portal. To deploy to a resource group, enter the following command
 
-    <code style="color:black;">
-    az group create --name MyResourceGroup  --location westus</code>
+<code style="color:black;">
+az group create --name MyResourceGroup  --location westus</code>
 
 1. To create an App service plan
 
-     <code style="color:black;">
-    az appservice plan create --resource-group MyResourceGroup --name MyPlan --sku S1</code>
+ <code style="color:black;">
+az appservice plan create --resource-group MyResourceGroup --name MyPlan --sku S1</code>
 
 1. Create the web app with a unique app name
 
@@ -49,11 +53,12 @@ This lab will show how you will
 
 1. Finally, create the MySQL server with a unique server name.
 
-    <code style="color:black;">
-    az mysql server create --resource-group MyResourceGroup --name mysqldbserver --admin-user mysqldbuser --admin-password P2ssw0rd@123 --sku-name GP_Gen5_2
-    </code>
+   <code style="color:black;">
+   az mysql server create --resource-group MyResourceGroup --name mysqldbserver --admin-user mysqldbuser --admin-password P2ssw0rd@123 --sku-name GP_Gen5_2
+   </code>
 
-     {% include important.html content= "Enter a unique SQL server name. Since the Azure SQL Server name does not support **UPPER** / **Camel** casing naming conventions, use lowercase for the ***DB Server Name*** field value." %}
+   {% include important.html content= "Enter a unique SQL server name. Since the Azure SQL Server name does not support **UPPER** / **Camel** casing naming conventions, use lowercase for the ***DB Server Name*** field value." %}
+
 1. Navigate to the resource group that you have created. You should see a **Azure Database for MySQL server** provisioned. Select the database server.
 
    ![Resource Group](images/resourcegroup.png)
@@ -62,25 +67,24 @@ This lab will show how you will
 
    ![Database properties](images/dbproperties.png)
 
-   In this example, the server name is **myshuttle-1-mysqldbserver.mysql.database.azure.com** and the admin user name is **mysqldbuser@myshuttle-1-mysqldbserver**. 
+   In this example, the server name is **myshuttle-1-mysqldbserver.mysql.database.azure.com** and the admin user name is **mysqldbuser@myshuttle-1-mysqldbserver**.
 
-1. Select **Connection security**. Enable **Allow access to Azure services** toggle and **Save** the changes. This provides access to Azure services for  all the databases in your MySQL server.
-       
-    ![](images/mysqlaccess1.png)
-       
+1. Select **Connection security**. Enable **Allow access to Azure services** toggle and **Save** the changes. This provides access to Azure services for all the databases in your MySQL server.
+   ![](images/mysqlaccess1.png)
+
 ## Exercise 2: Updating the App Settings for the Web App
 
-Next, navigate to the Web app that you have created. As you are deploying a Java application, you need to change the web app’s web container to Apache Tomcat. 
+Next, navigate to the Web app that you have created. As you are deploying a Java application, you need to change the web app’s web container to Apache Tomcat.
 
 1. Select **Configuration**. Set the **Stack settings** as shown in below image and click **Save**.
 
-    ![Setting Web container to Tomcat](images/webcontainer1.png)
+   ![Setting Web container to Tomcat](images/webcontainer1.png)
 
 1. Select **Overview** and click **Browse**.
 
-     ![Default Java App](images/browseapp.png)
+   ![Default Java App](images/browseapp.png)
 
-    The web page will look like the below image.
+   The web page will look like the below image.
 
    ![Default Java App](images/defaultappjava.png)
 
@@ -88,7 +92,7 @@ Next, navigate to the Web app that you have created. As you are deploying a Java
 
 1. From the Azure portal, select the Web app you provisioned. Go to **Configuration \| Application settings \| Connection strings** and click on **+ New connection string**.
 
-     ![](images/connectionstringsetup.png)
+   ![](images/connectionstringsetup.png)
 
 1. In **Add/Edit connection string** window, add a new **MySQL** connection string with **MyShuttleDb** as the name, paste the following string for the value and replace **MySQL Server Name**, **your user name** and **your password** with the appropriate values. Click **Update**.
 
@@ -117,8 +121,9 @@ You have now setup and configured all the resources that is needed to deploy and
    ![Builds](images/editbuild2.png)
 
    > The lab uses the standard **Maven** build template to compile the code, copy and publish the resulting artifacts for deployment. An additional file which is copied here is the `CreateMYSQLDB.sql` file which creates a MySQL database and inserts a few records into it during the deployment.
-   
-    {% include note.html content= "We also have a YAML build pipeline if that's something you're interested in. To proceed through the YAML pipeline, choose **MyShuttle-YAML** and click **Edit** to view the YAML pipeline. If you utilize the YAML pipeline, make sure to update the **MyShuttleRelease** release definition's artifact link." %}
+
+   {% include note.html content= "We also have a YAML build pipeline if that's something you're interested in. To proceed through the YAML pipeline, choose **MyShuttle-YAML** and click **Edit** to view the YAML pipeline. If you utilize the YAML pipeline, make sure to update the **MyShuttleRelease** release definition's artifact link." %}
+
 1. Click **Queue** to trigger the build and wait for the build to complete.
 
    ![Queue Build](images/queuebuild.png)

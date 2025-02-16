@@ -25,9 +25,13 @@ The Web App for Containers allows the creation of custom [Docker](https://www.do
 
 ## Before you begin
 
-1. Refer the [Getting Started](../Setup/) page to know the prerequisites for this lab.
+1. Refer to the [Getting Started](../Setup/) page before you begin following the exercises.
 
-1. Click the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?Name=Docker&TemplateId=77363) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
+1. Follow the [simple walkthrough](https://docs.microsoft.com/en-us/azure/devops/demo-gen/use-vsts-demo-generator-v2?   view=vsts) to know how to use the Azure DevOps Demo Generator.
+
+1. Once you run the application choose **Docker** template, choose the right authentication method.
+
+1. Choose the organization and provide the project name to create a new project. Follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps Organization**.
 
 ## Setting up the Environment
 

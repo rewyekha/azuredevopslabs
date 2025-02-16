@@ -58,7 +58,7 @@ In this lab, you will learn how to integrate Azure DevOps Services with SonarClo
 
    See [this Microsoft documentation](https://docs.microsoft.com/en-us/azure/devops/repos/git/import-git-repository?view=azure-devops) for detailed instructions on importing a repository.
 
-1. Install the SonarCloud Azure DevOps extension in your Azure DevOps account. The SonarCloud extension contains build tasks, build templates and a custom dashboard widget to help with the construction of your pipeline.
+1. Install the SonarCloud Azure DevOps extension in your Azure DevOps Organization. The SonarCloud extension contains build tasks, build templates and a custom dashboard widget to help with the construction of your pipeline.
 
    Find the [SonarCloud extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarcloud) on the Visual Studio Marketplace and click **Get it free** to install it, then select **Proceed to organization** after the installation has finished.
 

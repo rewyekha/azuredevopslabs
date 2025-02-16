@@ -10,6 +10,8 @@ Before you start following the labs, you need to complete the below tasks.
 
 1. You will need an **Azure DevOps** account. If you do not have one, you can sign up for free [here](https://azure.microsoft.com/en-us/services/devops/){:target="_blank"}
 
+1. 
+
 ## Setting up the Azure DevOps Project
 
 **Azure DevOps Demo Generator** helps you create team projects on your Azure DevOps Organization with sample content that include source code, work items, iterations, service endpoints, build and release definitions based on the template you choose during the configuration.

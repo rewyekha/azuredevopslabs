@@ -5,11 +5,12 @@ sidebar: vsts2
 permalink: /labs/vstsextend/php/
 folder: /labs/vstsextend/php/
 ---
+
 <div class="rw-ui-container"></div>
 
 ## Overview
 
-Azure Pipelines helps you set up a highly customizable continuous integration (CI) and continuous delivery (CD) pipeline to target app services, virtual machines, or containers in Azure whether you are developing a .NET, Java, Node, PHP, or a Python app.   
+Azure Pipelines helps you set up a highly customizable continuous integration (CI) and continuous delivery (CD) pipeline to target app services, virtual machines, or containers in Azure whether you are developing a .NET, Java, Node, PHP, or a Python app.
 
 In this lab, you will configure [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) for a PHP app to deploy on to an [Azure Web App](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-overview).
 
@@ -17,10 +18,9 @@ In this lab, you will configure [Azure Pipelines](https://azure.microsoft.com/en
 
 Upon completion of this lab, you will be able to:
 
-  * Set up a PHP Azure DevOps Project with Azure DevOps Demo Generator
-  * Set up an Azure CI Pipeline
-  * Set up an Azure Web App within the Release pipeline and deploy the PHP Application to the Azure Web App
-
+- Set up a PHP Azure DevOps Project with Azure DevOps Demo Generator
+- Set up an Azure CI Pipeline
+- Set up an Azure Web App within the Release pipeline and deploy the PHP Application to the Azure Web App
 
 ### Before you begin
 
@@ -32,19 +32,23 @@ In this practice lab, you are going to work on a PHP project. The purpose is to 
 
 While the code is a simple PHP application, you will use Azure Command Line Interface(CLI) to provision the infrastructure to deploy the build artifacts.
 
-1. Use the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77365&Name=PHP){:target="_blank"} to provision project on your Azure DevOps Organization. This URL will automatically select the **PHP** template in the demo generator.
+1. Follow the [simple walkthrough](https://docs.microsoft.com/en-us/azure/devops/demo-gen/use-vsts-demo-generator-v2? view=vsts) to know how to use the Azure DevOps Demo Generator.
+
+1. Once you run the application choose **PHP** template, choose the right authentication method.
+
+1. Choose the organization and provide the project name to create a new project. Follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps Organization**.
 
 ## Exercise 2: Commit code changes which triggers a CI build
 
-The **Azure DevOps Demo Generator** creates a Git repository with code in your Azure DevOps Organization. You are going to update the code and commit changes. 
+The **Azure DevOps Demo Generator** creates a Git repository with code in your Azure DevOps Organization. You are going to update the code and commit changes.
 
 1. Navigate to **Repos** tab in the Azure DevOps portal and navigate to the below path to edit the file.
 
-   >php/config.php
+   > php/config.php
 
    ![code1](images/Repos1_5.png)
 
-1. Scroll down to line number **11**, select *Edit*  , modify **PHP** to **DevOps for PHP using Azure DevOps** and choose **Commit** to save the changes to the code.
+1. Scroll down to line number **11**, select _Edit_ , modify **PHP** to **DevOps for PHP using Azure DevOps** and choose **Commit** to save the changes to the code.
 
    ![code_editing](images/Repos2_2.png)
 
@@ -54,15 +58,13 @@ The **Azure DevOps Demo Generator** creates a Git repository with code in your A
 
    ![in_progress_build](images/Buildcomplete10.png)
 
-
 ## Examine the Build Definition
 
-   Let's explore the build definition. The tasks used in the build definition are listed below.
+Let's explore the build definition. The tasks used in the build definition are listed below.
 
-  {% include note.html content= "We also have a YAML build pipeline if that's something you're interested in. To proceed through the YAML pipeline, choose **PHP-YAML** and click **Edit** to view the YAML pipeline. If you utilize the YAML pipeline, make sure to update the **PHP** release definition's artifact link." %}
+{% include note.html content= "We also have a YAML build pipeline if that's something you're interested in. To proceed through the YAML pipeline, choose **PHP-YAML** and click **Edit** to view the YAML pipeline. If you utilize the YAML pipeline, make sure to update the **PHP** release definition's artifact link." %}
 
-
-   ![Build Definition](images/builddef.png)
+![Build Definition](images/builddef.png)
 
    <table width="70%">
     <thead>
@@ -81,47 +83,45 @@ The **Azure DevOps Demo Generator** creates a Git repository with code in your A
     </tr>
    </table>
 
-
 ## Exercise 3: Configure the Release Definition
 
 Once the build is complete, let us configure the CD pipeline. You will notice a release definition by navigating to **Releases** under the **Pipelines** section. The release will provision an Azure Web app using the Azure CLI and deploy the zip file to the Web App generated by the associated build.
 
-
 1. Under the **Releases** under **Pipelines** tab, select release definition **PHP** and click on **Edit**.
 
-    ![release1_3.png](images/release1_3.png)
+   ![release1_3.png](images/release1_3.png)
 
 1. Go to **Tasks** and select **Dev** environment.
 
    ![dev_release](images/dev1_4.png)
 
 1. Select the **Azure CLI** task, choose the **Azure subscription**. There are 2 ways of choosing the Azure subscription.
-   
-    * If your subscription is not listed or if you want to use an existing service principal, click the `Manage` link. 
 
-        1. Click on the `+New Service Connection` button and select the **Azure Resource Manager** option. Provide Connection name, select the Azure Subscription from the list and then click on the Ok button. The Azure credentials will be required to authorize the connection.
+   - If your subscription is not listed or if you want to use an existing service principal, click the `Manage` link.
 
-        ![Endpoint](images/endpoint_creation.png)
+     1. Click on the `+New Service Connection` button and select the **Azure Resource Manager** option. Provide Connection name, select the Azure Subscription from the list and then click on the Ok button. The Azure credentials will be required to authorize the connection.
 
-    * If the subscription is already listed, select the Azure subscription from the list and click `Authorize`.
+     ![Endpoint](images/endpoint_creation.png)
 
-        ![Authorize](images/authorize.png)
+   - If the subscription is already listed, select the Azure subscription from the list and click `Authorize`.
 
-1. Azure CLI is used in the inline script to create the following in Azure - 
+     ![Authorize](images/authorize.png)
 
-    * Resource Group
-    * App Service Plan
-    * App Service
+1. Azure CLI is used in the inline script to create the following in Azure -
 
-    ![Deployment Location](images/cliscript.png)
+   - Resource Group
+   - App Service Plan
+   - App Service
+
+   ![Deployment Location](images/cliscript.png)
 
 1. The variables are defined in the **Variables** section.
 
-    ![Variables](images/variables.png)
+   ![Variables](images/variables.png)
 
-1. Select the **Azure App Service Deploy** task and pick **Azure subscription** from the dropdown list, then click on **Save**. 
+1. Select the **Azure App Service Deploy** task and pick **Azure subscription** from the dropdown list, then click on **Save**.
 
-    ![Deployment Slot](images/dev6.png)    
+   ![Deployment Slot](images/dev6.png)
 
    <table width="70%">
     <thead>
@@ -148,9 +148,8 @@ Once the build is complete, let us configure the CD pipeline. You will notice a 
 
 1. Once the release succeeds, navigate to the created Web App to view the PHP application.
 
-   ![PHP App](images/php.png) 
+   ![PHP App](images/php.png)
 
 ## Summary
 
 In this lab, you have learnt how to deploy a PHP application on Azure Web App with Azure Pipelines.
-

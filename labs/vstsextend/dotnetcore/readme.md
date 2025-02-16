@@ -6,11 +6,12 @@ permalink: /labs/vstsextend/dotnetcore/
 folder: /labs/vstsextend/dotnetcore/
 updated: blank
 ---
+
 <div class="rw-ui-container"></div>
 
 ## Overview
 
-This lab shows how to deploy an ASP.NET Core application to Azure App Service with Visual Studio Team Services.
+This lab shows how to deploy an ASP.NET Core application to Azure App Service with Azure DevOps.
 
 [ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/) is a cross-platform, high-performance, open-source framework for building modern, cloud-based, Internet-connected applications. With ASP.NET Core, you can:
 
@@ -21,45 +22,45 @@ This lab shows how to deploy an ASP.NET Core application to Azure App Service wi
 
 ## Prerequisites for the lab
 
-1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="_blank"}
+1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="\_blank"}
 
-    - If you are an active Visual Studio Subscriber, you are entitled for a $50-$150 credit per month. You can refer to this [link](https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-details/){:target="_blank"} to find out more information about this including how to activate and start using your monthly Azure credit.
+   - If you are an active Visual Studio Subscriber, you are entitled for a $50-$150 credit per month. You can refer to this [link](https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-details/){:target="\_blank"} to find out more information about this including how to activate and start using your monthly Azure credit.
 
-    - If you are not a Visual Studio Subscriber, you can sign up for the FREE [Visual Studio Dev Essentials](https://www.visualstudio.com/dev-essentials/){:target="_blank"} program to create a **Azure free account** (includes 1 year of free services, $200 for 1st month).
+   - If you are not a Visual Studio Subscriber, you can sign up for the FREE [Visual Studio Dev Essentials](https://www.visualstudio.com/dev-essentials/){:target="\_blank"} program to create a **Azure free account** (includes 1 year of free services, $200 for 1st month).
 
-1. You will need a **Visual Studio Team Services Account**. If you do not have one, you can sign up for free [here](https://www.visualstudio.com/products/visual-studio-team-services-vs){:target="_blank"}
+1. You will need a **Azure DevOps Organization**. If you do not have one, you can sign up for free [here](https://www.visualstudio.com/products/visual-studio-team-services-vs){:target="\_blank"}
 
-1. You will need a **Personal Access Token** to set up your project using the **VSTS Demo Generator**. Please see this [article](https://docs.microsoft.com/en-us/vsts/accounts/use-personal-access-tokens-to-authenticate){:target="_blank"} for instructions to create your token.
+1. You will need a **Personal Access Token** to set up your project using the **Azure DevOps Demo Generator**. Please see this [article](https://docs.microsoft.com/en-us/vsts/accounts/use-personal-access-tokens-to-authenticate){:target="\_blank"} for instructions to create your token.
 
-    {% include note.html content= "You should treat Personal Access Tokens like passwords. It is recommended that you save them somewhere safe so that you can re-use them for future requests." %}
+   {% include note.html content= "You should treat Personal Access Tokens like passwords. It is recommended that you save them somewhere safe so that you can re-use them for future requests." %}
 
-## Setting up the VSTS Project
+## Setting up the Azure DevOps Project
 
-1. Use the [VSTS Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?name=MyHealthClinic){:target="_blank"} to provision the team project on the VSTS account.
+1. Refer to the [Getting Started](../Setup/) page before you begin following the exercises.
 
-   > **VSTS Demo Generator** helps you create team projects on your VSTS account with sample content that include source code, work items,iterations, service endpoints, build and release definitions based on the template you choose during the configuration.
+1. Follow the [simple walkthrough](https://docs.microsoft.com/en-us/azure/devops/demo-gen/use-vsts-demo-generator-v2? view=vsts) to know how to use the Azure DevOps Demo Generator.
 
-   ![VSTS Demo Generator](images/vsts_demoGen.png)
+1. Once you run the application choose **MyHealthClinic** template, choose the right authentication method.
 
-1. Once the team project is provisioned, click on the URL to navigate to the team project.
+1. Choose the organization and provide the project name to create a new project. Follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps Organization**.
 
-   ![VSTS Demo Generator](images/project_provision.png)
+   > **Azure DevOps Demo Generator** helps you create team projects on your Azure DevOps Organization with sample content that include source code, work items,iterations, service endpoints, build and release definitions based on the template you choose during the configuration.
 
 ## Exercise 1: Endpoint Creation
 
 Since the connections are not established during project provisioning, we will manually create the endpoints.
 
-In VSTS, navigate to **Services** by clicking the gear icon ![gear](images/gear.png), and click **+ New Service Endpoint**. Select **Azure Resource Manager**. Specify **Connection name**, select your **Subscription** from the dropdown and click **OK**. We use this endpoint to connect **VSTS** with **Azure**.
+In Azure DevOps, navigate to **Services** by clicking the gear icon ![gear](images/gear.png), and click **+ New Service Endpoint**. Select **Azure Resource Manager**. Specify **Connection name**, select your **Subscription** from the dropdown and click **OK**. We use this endpoint to connect **Azure DevOps** with **Azure**.
 
-   ![endpoint_creation](images/endpoint_creation.png)
+![endpoint_creation](images/endpoint_creation.png)
 
-   You will be prompted to authorize this connection with Azure credentials. Disable pop-up blocker in your browser if you see a blank screen after clicking OK, and retry the step.
+You will be prompted to authorize this connection with Azure credentials. Disable pop-up blocker in your browser if you see a blank screen after clicking OK, and retry the step.
 
 ## Exercise 2: Configure Release
 
 Now that connections are established, we will manually map the endpoints to release definition.
 
-{% include warning.html content= "You will encounter an error - **TFS.WebApi.Exception: Page not found** for Azure tasks in the release definition. This is due to a recent change in the VSTS Release Management API. While we are working on updating VSTS Demo Generator to resolve this issue, you can fix this by typing a random text in the **Azure Subscription** field and click the **Refresh** icon next to it. Once the field is refreshed, you can select the endpoint from the drop down." %}
+{% include warning.html content= "You will encounter an error - **TFS.WebApi.Exception: Page not found** for Azure tasks in the release definition. This is due to a recent change in the Azure DevOps Release Management API. While we are working on updating Azure DevOps Demo Generator to resolve this issue, you can fix this by typing a random text in the **Azure Subscription** field and click the **Refresh** icon next to it. Once the field is refreshed, you can select the endpoint from the drop down." %}
 
 1. Go to **Releases** under **Build & Release** tab, edit the release definition **MyHealthClinicE2E**.
 
@@ -121,18 +122,18 @@ Now that connections are established, we will manually map the endpoints to rele
 
    While the build is in progress, let's explore the build definition. The tasks that is used in the build definition are listed in the table below.
 
-   |Tasks| Usage|
-   |-----|------|
-   |![dotnetcore](images/dotnetcore.png) **Restore**| dotnet command-line tool restores all the package dependencies like **ASP.NET Core Identity, ASP.NET Core session** etc. required to build this project|
-   |![npm](images/npm.png) **npm Install**| npm task installs the npm packages (javascript dependencies) like **babelify, browserify** etc. required to build this project|
-   |![bower](images/bower.png) **Bower Install**|We will use this task to manage components that contain HTML, CSS, JavaScript, fonts and even image files. Example: jquery, angular, webcomponentsjs etc|
-   |![gulp](images/gulp.png) **Gulp**| gulp task compiles sass files, uglify and compress js files|
-   |![dotnetcore](images/dotnetcore.png) **Build**| We will use dotnet command-line tool to build the project and its dependencies into a set of binaries|
-   |![dotnetcore](images/dotnetcore.png) **Test**| dotnet command-line tool wil run unit tests as part of build process to ensure the code quality. This project contains 6 unit tests|
-   |![dotnetcore](images/dotnetcore.png) **Publish**| We will use this task to create a package with published content for the web deployment|
-   |![vstest](images/vstest.png) **Publish Test Results**| We will use this task to publish the unit test result|
-   |![copyfiles](images/copyfiles.png) **Copy Files**| We will copy the zipped file and the ARM template to a staging directory|
-   |![publishartifacts](images/publishartifacts.png) **Publish Build Artifacts**| And finally, we will publish the files in the staging directory which were copied in the previous step|
+   | Tasks                                                                        | Usage                                                                                                                                                    |
+   | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+   | ![dotnetcore](images/dotnetcore.png) **Restore**                             | dotnet command-line tool restores all the package dependencies like **ASP.NET Core Identity, ASP.NET Core session** etc. required to build this project  |
+   | ![npm](images/npm.png) **npm Install**                                       | npm task installs the npm packages (javascript dependencies) like **babelify, browserify** etc. required to build this project                           |
+   | ![bower](images/bower.png) **Bower Install**                                 | We will use this task to manage components that contain HTML, CSS, JavaScript, fonts and even image files. Example: jquery, angular, webcomponentsjs etc |
+   | ![gulp](images/gulp.png) **Gulp**                                            | gulp task compiles sass files, uglify and compress js files                                                                                              |
+   | ![dotnetcore](images/dotnetcore.png) **Build**                               | We will use dotnet command-line tool to build the project and its dependencies into a set of binaries                                                    |
+   | ![dotnetcore](images/dotnetcore.png) **Test**                                | dotnet command-line tool wil run unit tests as part of build process to ensure the code quality. This project contains 6 unit tests                      |
+   | ![dotnetcore](images/dotnetcore.png) **Publish**                             | We will use this task to create a package with published content for the web deployment                                                                  |
+   | ![vstest](images/vstest.png) **Publish Test Results**                        | We will use this task to publish the unit test result                                                                                                    |
+   | ![copyfiles](images/copyfiles.png) **Copy Files**                            | We will copy the zipped file and the ARM template to a staging directory                                                                                 |
+   | ![publishartifacts](images/publishartifacts.png) **Publish Build Artifacts** | And finally, we will publish the files in the staging directory which were copied in the previous step                                                   |
 
 1. Click on the build number to open the live console.
 
@@ -158,7 +159,7 @@ We are using **Infrastructure as a Code** in the release pipeline. We have a rel
 
    ![pipeline](images/pipeline.png)
 
-   >Go to the Dev environment, you will see 2 tasks are used. Let us explore the tasks.
+   > Go to the Dev environment, you will see 2 tasks are used. Let us explore the tasks.
 
    ![release_tasks](images/release_tasks.png)
 
@@ -186,4 +187,4 @@ We are using **Infrastructure as a Code** in the release pipeline. We have a rel
 
 ## Summary
 
-**Visual Studio Team Services** simplifies creation of continuous integration and continuous delivery pipelines for your application to be deployed to Azure.
+**Azure DevOps** simplifies creation of continuous integration and continuous delivery pipelines for your application to be deployed to Azure.

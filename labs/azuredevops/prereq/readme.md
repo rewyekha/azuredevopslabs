@@ -46,8 +46,8 @@ Here you have 2 methods to authenticate Azure DevOps Demo Generator:
 
 2. With Personal Access Token (PAT)
 
-   <a href="https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat">Create Personal Access Token</a> with the given scopes below
-
+   <a href="https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat" target="_blank">Create Personal Access Token</a> with the given scopes below
+   
    | Scope                      | Description                                |
    | -------------------------- | ------------------------------------------ |
    | vso.agentpools             | Agent Pools (read)                         |
